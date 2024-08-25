@@ -1,12 +1,6 @@
 import React from "react";
-
-type TicketType = {
-  id: string;
-  user_email: string;
-  body: string;
-  priority: string;
-  title: string;
-};
+import { TicketType } from "../types";
+import Link from "next/link";
 
 async function getTickets(): Promise<TicketType[]> {
   const resp = await fetch("http://localhost:4000/tickets", {
@@ -26,9 +20,11 @@ const TicketList = async () => {
       {tickets.map(({ body, id, priority, title, user_email }) => {
         return (
           <div key={id} className="card my-5">
-            <h3>{title}</h3>
-            <p>{body.slice(0, 200)}</p>
-            <div className={`pill ${priority}`}>{priority} priority</div>
+            <Link href={`/tickets/${id}`}>
+              <h3>{title}</h3>
+              <p>{body.slice(0, 200)}</p>
+              <div className={`pill ${priority}`}>{priority} priority</div>
+            </Link>
           </div>
         );
       })}
