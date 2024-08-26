@@ -3,6 +3,8 @@ import { TicketType } from "../types";
 import Link from "next/link";
 
 async function getTickets(): Promise<TicketType[]> {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const resp = await fetch("http://localhost:4000/tickets", {
     next: {
       revalidate: 0, // 0 to opt out cache
